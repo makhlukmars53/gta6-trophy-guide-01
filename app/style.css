@@ -1,7 +1,105 @@
-body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
-header { display: flex; justify-content: space-between; align-items: baseline; }
-.controls { display: flex; gap: 16px; margin: 12px 0; align-items: center; }
-.import input { font-size: 12px; }
-table { border-collapse: collapse; width: 100%; }
-th, td { border-bottom: 1px solid #ddd; padding: 6px 8px; text-align: left; vertical-align: top; white-space: pre-line; }
-th { background: #f2f2f2; }
+/* Leonida Trophy Guide: own look, no game artwork. Deep dusk purple, sunset pink/orange accent. */
+* { box-sizing: border-box; }
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  margin: 0;
+  color: #241b2e;
+  background: #f6f1ea;
+  line-height: 1.45;
+}
+.masthead {
+  background: linear-gradient(115deg, #2b1a4a 0%, #5b2350 55%, #b3402e 100%);
+  color: #fff;
+  padding: 28px 24px;
+  display: flex;
+  gap: 32px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.masthead-text { max-width: 640px; }
+.kicker { margin: 0 0 6px; font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #ffd9a8; }
+h1 { margin: 0 0 8px; font-size: 40px; line-height: 1.05; }
+.sub { margin: 0; font-size: 16px; color: #f2e7f5; }
+.progress-box { min-width: 240px; background: rgba(255, 255, 255, 0.12); border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 10px; padding: 14px 16px; }
+.progress-num { font-size: 34px; font-weight: bold; }
+.progress-num .of { font-size: 18px; font-weight: normal; color: #ffd9a8; }
+.progress-bar { height: 10px; background: rgba(255, 255, 255, 0.25); border-radius: 5px; margin: 8px 0; overflow: hidden; }
+#progress-fill { height: 100%; width: 0%; background: #ffb347; transition: width 0.3s; }
+#progress-detail { margin: 0; font-size: 14px; }
+.progress-note { margin: 6px 0 0; font-size: 12px; color: #e8d5ee; }
+
+.tabs { display: flex; gap: 4px; padding: 0 24px; background: #2b1a4a; }
+.tab {
+  font: inherit; font-size: 16px; padding: 10px 18px; cursor: pointer;
+  background: transparent; color: #d9c8e8; border: none; border-bottom: 3px solid transparent;
+}
+.tab.active { color: #fff; border-bottom-color: #ffb347; font-weight: bold; }
+main { max-width: 1060px; margin: 0 auto; padding: 18px 24px 32px; }
+
+.controls { background: #fff; border: 1px solid #ddd2c4; border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(43, 26, 74, 0.12); }
+.kind-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+.kind {
+  font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 999px; cursor: pointer;
+  border: 1px solid #b9a8c9; background: #f6f1ea; color: #2b1a4a;
+}
+.kind.active { background: #2b1a4a; color: #fff; border-color: #2b1a4a; }
+.kind .count { opacity: 0.75; font-size: 12px; }
+.controls-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: end; }
+.field { font-size: 13px; color: #5c4a6b; display: flex; flex-direction: column; gap: 3px; }
+.field select, .field input {
+  font: inherit; font-size: 14px; padding: 6px 8px; border: 1px solid #b9a8c9; border-radius: 6px; background: #fff; color: #241b2e;
+}
+.field input { min-width: 200px; }
+.check { font-size: 14px; display: flex; align-items: center; gap: 6px; padding-bottom: 7px; }
+button { font: inherit; font-size: 14px; padding: 7px 14px; border-radius: 6px; cursor: pointer; border: 1px solid #2b1a4a; background: #2b1a4a; color: #fff; }
+button.quiet { background: #fff; color: #2b1a4a; }
+.import { font-size: 14px; padding: 7px 14px; border-radius: 6px; cursor: pointer; border: 1px solid #2b1a4a; background: #fff; color: #2b1a4a; }
+.import input { display: none; }
+.filter-note { margin: 10px 0 0; font-size: 13px; color: #6b4a1f; background: #fdf3dd; border: 1px solid #ecd9a8; border-radius: 6px; padding: 8px 10px; }
+.list-summary { font-size: 14px; color: #5c4a6b; margin: 0 0 12px; }
+
+.cards { display: grid; gap: 12px; }
+.card {
+  background: #fff; border: 1px solid #ddd2c4; border-radius: 10px; padding: 14px 16px;
+  display: grid; grid-template-columns: 28px 1fr; gap: 12px;
+}
+.card.earned { border-color: #7a9a5b; background: #f7faf3; }
+.card input[type="checkbox"] { width: 20px; height: 20px; margin-top: 4px; accent-color: #2b1a4a; cursor: pointer; }
+.card-head { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.card h3 { margin: 0; font-size: 19px; }
+.grade {
+  font-family: Arial, sans-serif; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.06em;
+  padding: 2px 8px; border-radius: 999px; color: #fff; white-space: nowrap;
+}
+.grade-platinum { background: #4a6fa5; }
+.grade-gold { background: #b8860b; }
+.grade-silver { background: #6e7f8a; }
+.grade-bronze { background: #8a5a2b; }
+.tag {
+  font-family: Arial, sans-serif; font-size: 11px; padding: 2px 8px; border-radius: 999px;
+  border: 1px solid #b9a8c9; color: #5c4a6b; white-space: nowrap;
+}
+.tag-missable { border-color: #b3402e; color: #b3402e; font-weight: bold; }
+.official { margin: 6px 0; font-style: italic; color: #4a3a5c; }
+.official .label, .guide-text .label, .sources .label { font-style: normal; font-weight: bold; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: #8a7a9a; }
+.guide-text { margin: 6px 0; }
+.note { margin: 6px 0; font-size: 13px; color: #6b4a1f; background: #fdf3dd; border-left: 3px solid #e0a83c; padding: 6px 10px; }
+.sources { margin: 8px 0 0; font-size: 13px; color: #5c4a6b; }
+.sources a { color: #5b2350; }
+.spoiler-hidden { color: #8a7a9a; font-style: italic; }
+.empty { font-size: 16px; color: #5c4a6b; text-align: center; padding: 32px 0; }
+
+#view-roadmap h2 { font-size: 28px; margin: 6px 0 10px; }
+.roadmap-intro { font-size: 16px; }
+.missable-callout { background: #fdeceb; border: 1px solid #d98a7d; border-left: 5px solid #b3402e; border-radius: 8px; padding: 12px 16px; margin: 16px 0; }
+.missable-callout h3 { margin: 0 0 6px; color: #8a2418; }
+.missable-callout p { margin: 0; }
+.phases { list-style: none; padding: 0; counter-reset: phase; display: grid; gap: 14px; }
+.phases > li { background: #fff; border: 1px solid #ddd2c4; border-radius: 10px; padding: 14px 18px; counter-increment: phase; }
+.phases h3 { margin: 0 0 6px; font-size: 19px; }
+.phases h3::before { content: counter(phase) ". "; color: #b3402e; }
+.phases p { margin: 0; }
+.roadmap-foot { font-size: 13px; color: #5c4a6b; margin-top: 18px; }
+
+footer { max-width: 1060px; margin: 0 auto; padding: 0 24px 32px; font-size: 13px; color: #5c4a6b; }
+footer a { color: #5b2350; }
